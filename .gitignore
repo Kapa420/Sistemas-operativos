@@ -1,3 +1,4 @@
 /lecciones
 .vscode
 *.doc*
+*.o*
