@@ -1,6 +1,6 @@
 #/bin/bash
 
-#echo "Laboratory work 2.1"
+echo "Laboratory work 2.1"
 
 g++ -c lab2_1.cpp
 g++ -o lab2_1 lab2_1.o -lpthread
