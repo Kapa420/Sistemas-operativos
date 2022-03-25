@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-struct thread_args 
+struct thread_args
 {
     int flag;
 };
@@ -13,7 +13,8 @@ struct thread_args
 int filedes[2];
 struct sysinfo so;
 
-void *reader (void *arg){
+void *reader(void *arg)
+{
     thread_args *arg1 = (thread_args *)arg;
     long buffer;
     while (arg1->flag == 0)
@@ -31,7 +32,8 @@ void *reader (void *arg){
     pthread_exit((void *)1);
 };
 
-void *writer (void *arg){
+void *writer(void *arg)
+{
     sysinfo(&so);
     thread_args *arg2 = (thread_args *)arg;
     long buffer;
@@ -53,7 +55,7 @@ int main(int argc, char const *argv[])
     thread_args arg1 = {0};
     thread_args arg2 = {0};
 
-    pipe(filedes);
+    pipe2(filedes, O_NONBLOCK);
 
     if (pthread_create(&id1, NULL, writer, &arg1) != 0)
         std::cout << "The thread could not be created" << std::endl;
@@ -73,7 +75,5 @@ int main(int argc, char const *argv[])
 
     close(*filedes);
     std::cout << "\n" << std::endl;
-
     return 0;
 }
-
